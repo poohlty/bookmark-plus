@@ -37,7 +37,10 @@ var BookmarkView = Backbone.View.extend({
         var content = this.model.get("content");
         var link = this.model.get("link");
         var hash1 = CryptoJS.SHA1(content + link);
-        console.log("This is gonna be deleted:" + content + link);
+        chrome.storage.sync.remove(hash1.toString(), function(){
+            console.log("Entry deleted");
+        });
+        this.remove();
     }
 });
 
