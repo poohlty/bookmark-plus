@@ -5,10 +5,11 @@
   "description": "This is a bookmark system that doesn't suck.",
   "version": "0.1",
 
-  // "browser_action": {
-  //   "default_icon": "images/icon.png",
-  //   "default_popup": "popup.html"
-  // },
+  "browser_action": {
+    "default_icon": "images/icon.png",
+    "default_popup": "popup.html"
+  },
+
   "background": {
     "scripts": ["menu.js"]
   },
