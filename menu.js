@@ -16,6 +16,7 @@ function genericOnClick(info, tab) {
 
 var parent = chrome.contextMenus.create({
   "title": "Bookmark+",
+  "contexts": ["all"],
   "onclick": genericOnClick
 });
 
