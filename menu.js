@@ -2,34 +2,31 @@
 function genericOnClick(info, tab) {
   console.log("This is clicked!");
   console.log("info: " + JSON.stringify(info));
-  console.log("tab: " + JSON.stringify(tab));
-  console.log("Date: " + Date());
-  console.log("pageUrl: " + info.pageUrl);
+  //console.log("tab: " + JSON.stringify(tab));
+  //console.log("Date: " + Date());
+  //console.log("pageUrl: " + info.pageUrl);
   var link = info.pageUrl;
   var date = Date();
-
+  var youtube = (link.indexOf("http://www.youtube.com/watch?") == 0);
+  console.log("youtube?: " + youtube)
   var content, type;
-  if (info.selectionText) 
-  {
+
+  if (info.selectionText) {
     content = info.selectionText;
     type = "quote"
-  }
-  else if (info.mediaType)
-  {
-    switch (info.mediaType)
-    {
+  } else if (info.mediaType) {
+    switch (info.mediaType) {
       case "image":
         content = info.srcUrl;
         type = "image";
         break;
     }
-
-  }
-  else 
-  {
+  } else if (youtube) {
+    type = "youtube";
+    content = link;
+  } else {
      content = link;
      type = "page"
-
   }
 
   var dataEntry = {"type": type, "content": content, "link": link, "date": date};
@@ -38,20 +35,17 @@ function genericOnClick(info, tab) {
  // saveData(myList);
 
   chrome.storage.sync.get('test', function(items){
-    console.log("Get here!" + JSON.stringify(items));
-    var dataList = items.test
-    console.log("items" + JSON.stringify(dataList));
-    if (dataList) 
-    {
+    //console.log("Get here!" + JSON.stringify(items));
+    var dataList = items.test;
+ 
+    if (dataList) {
       dataList.push(dataEntry);
-    }
-    else
-    {
+    } else {
       dataList = [dataEntry];
     }
     
     saveData(dataList);
-
+    console.log("items" + JSON.stringify(dataList));
   });
 }
 // parent saves the id of the context menu 
