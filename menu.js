@@ -2,12 +2,9 @@
 function genericOnClick(info, tab) {
   console.log("This is clicked!");
   console.log("info: " + JSON.stringify(info));
-  //console.log("tab: " + JSON.stringify(tab));
-  //console.log("Date: " + Date());
-  //console.log("pageUrl: " + info.pageUrl);
   var link = info.pageUrl;
   var date = Date();
-  var youtube = (link.indexOf("http://www.youtube.com/watch?") == 0);
+  var youtube = (link.indexOf("http://www.youtube.com/watch?") === 0);
   console.log("youtube?: " + youtube);
   var content, type;
 
@@ -24,20 +21,17 @@ function genericOnClick(info, tab) {
     }
   } else if (youtube) {
     type = "youtube";
-    content = link.substring(link.indexOf("?")+3);
+    content = link.substring(link.indexOf("?") + 3);
   } else {
      content = link;
      type = "page";
   }
-  var iconUrl = "";
+
+  var iconUrl = "img/ext-icon-16.png";
   var options = {"type": "basic", "title": "Bookmark Created!", "message": type+" bookmarked!", "iconUrl": iconUrl};
   var dataEntry = {"type": type, "content": content, "link": link, "date": date};
-  //var entry2 = {"num": 3, "num2":5};
- // var myList = [entry1, entry2];
- // saveData(myList);
 
   chrome.storage.sync.get('test', function(items){
-    //console.log("Get here!" + JSON.stringify(items));
     var dataList = items.test;
 
     if (dataList) {
@@ -49,14 +43,15 @@ function genericOnClick(info, tab) {
       console.log('Notification created');
       window.setTimeout(function(){
         chrome.notifications.clear(notificationId, function(wasCleared){
-          if (wasCleared) {console.log('Notification cleared')}
-        })
-      }, 1500)
+          if (wasCleared) {console.log('Notification cleared');}
+        });
+      }, 2500);
     });
     saveData(dataList);
     console.log("items" + JSON.stringify(dataList));
   });
 }
+
 // parent saves the id of the context menu
 var parent = chrome.contextMenus.create({
   "title": "Bookmark+",
