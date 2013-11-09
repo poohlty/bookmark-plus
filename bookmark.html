@@ -10,49 +10,55 @@
 
     <script id="page-template" type="text/x-handlebars-template" >
       <img class= "icon" src="img/page-icon.png">
-      <div class="type">PAGE {{type}}</div>
-      <div class="content">{{content}}</div>
-      <div class="link">{{link}}</div>
-      <div class="date">{{date}}</div>
-      <hr>
+      <div class="bookmark-content">
+        <div class="type">PAGE {{type}}</div>
+        <div class="content">{{content}}</div>
+        <div class="link">{{link}}</div>
+        <div class="date">{{date}}</div>
+      </div>
     </script>
 
     <script id="img-template" type="text/x-handlebars-template" >
       <img class= "icon" src="img/image-icon.png">
-      <div class="type">IMG {{type}}</div>
-      <img src="{{content}}">
-      <div class="content">{{content}}</div>
-      <div class="link">{{link}}</div>
-      <div class="date">{{date}}</div>
-      <hr>
+      <div class="bookmark-content">
+        <div class="type">IMG {{type}}</div>
+        <img src="{{content}}">
+        <div class="content">{{content}}</div>
+        <div class="link">{{link}}</div>
+        <div class="date">{{date}}</div>
+      </div>
 
     </script>
 
     <script id="quote-template" type="text/x-handlebars-template" >
       <img class= "icon" src="img/quote-icon.png">
-      <div class="quote">QUOTE {{type}}</div>
-      <div class="content">{{content}}</div>
-      <div class="link">{{link}}</div>
-      <div class="date">{{date}}</div>
-      <hr>
+      <div class="bookmark-content">
+        <div class="quote">QUOTE {{type}}</div>
+        <div class="content">{{content}}</div>
+        <div class="link">{{link}}</div>
+        <div class="date">{{date}}</div>
+      </div>
     </script>
 
     <script id="youtube-template" type="text/x-handlebars-template" >
       <img class= "icon" src="img/video-icon.png">
-      <div class="type">YOUTUBE {{type}}</div>
-      <div class="content">{{content}}</div>
-      <div class="link">{{link}}</div>
-      <div class="date">{{date}}</div>
-      <iframe class="ytplayer" type="text/html" width="640" height="360"
-      src="https://www.youtube.com/embed/M7lc1UVf-VE"
-      frameborder="0" allowfullscreen>
-      <hr>
+      <div class="bookmark-content">
+        <div class="type">YOUTUBE {{type}}</div>
+        <div class="content">{{content}}</div>
+        <div class="link">{{link}}</div>
+        <div class="date">{{date}}</div>
+        <iframe class="ytplayer" type="text/html" width="640" height="360"
+        src="https://www.youtube.com/embed/{{content}}"
+        frameborder="0" allowfullscreen>
+      </div>
     </script>
 
     <script src="bookmark.js"></script>
   </head>
   <body>
-    Your awesome bookmarks
+    <center>
+      <div id="title">Your awesome bookmarks</div>
+    </center>
     <hr>
     <div id="bookmarks"></div>
   </body>
