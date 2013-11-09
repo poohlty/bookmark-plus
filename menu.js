@@ -11,6 +11,7 @@ function genericOnClick(info, tab) {
   console.log("youtube?: " + youtube);
   var content, type;
 
+
   if (info.selectionText) {
     content = info.selectionText;
     type = "quote";
@@ -28,7 +29,8 @@ function genericOnClick(info, tab) {
      content = link;
      type = "page";
   }
-
+  var iconUrl = "";
+  var options = {"type": "basic", "title": "Bookmark Created!", "message": type+" bookmarked!", "iconUrl": iconUrl};
   var dataEntry = {"type": type, "content": content, "link": link, "date": date};
   //var entry2 = {"num": 3, "num2":5};
  // var myList = [entry1, entry2];
@@ -43,7 +45,14 @@ function genericOnClick(info, tab) {
     } else {
       dataList = [dataEntry];
     }
-
+    chrome.notifications.create("", options, function(notificationId){
+      console.log('Notification created');
+      window.setTimeout(function(){
+        chrome.notifications.clear(notificationId, function(wasCleared){
+          if (wasCleared) {console.log('Notification cleared')}
+        })
+      }, 1500)
+    });
     saveData(dataList);
     console.log("items" + JSON.stringify(dataList));
   });
