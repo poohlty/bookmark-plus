@@ -63,24 +63,29 @@ function genericOnClick(info, tab) {
   };
 
   var hash = CryptoJS.SHA1(content + link).toString();
-  var dataEntry = {
-    "type": type,
-    "content": content,
-    "link": link,
-    "date": date
-  };
 
-  console.log("hash = " + hash);
-  chrome.storage.sync.get(null, function(items){
-    var item = items[hash];
-    console.log('Item = '+ JSON.stringify(item));
-    if (item != null) {
-      displayNotification(options2);
-    } else {
-      saveData(dataEntry);
-    }
-    console.log("All bookmarks = " + JSON.stringify(items));
+  $.ajax("https://quiet-headland-7786.herokuapp.com/?url=" + link).done(function(data){
+    var dataEntry = {
+      "type": type,
+      "content": content,
+      "link": link,
+      "date": date,
+      "title": JSON.parse(data).title
+    };
+
+    console.log("hash = " + hash);
+    chrome.storage.sync.get(null, function(items){
+      var item = items[hash];
+      console.log('Item = '+ JSON.stringify(item));
+      if (item != null) {
+        displayNotification(options2);
+      } else {
+        saveData(dataEntry);
+      }
+      console.log("All bookmarks = " + JSON.stringify(items));
+    });
   });
+
 
 }
 

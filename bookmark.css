@@ -28,8 +28,16 @@ body{
     border-radius: 7px;
 }
 
-.quote{
+.quote {
     font-style: italic;
+}
+
+.orig_link{
+    font-weight: bold;
+}
+
+.image-content{
+    max-width: 600px;
 }
 
 .bookmark-content{

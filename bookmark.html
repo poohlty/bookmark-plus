@@ -14,8 +14,7 @@
     <script id="page-template" type="text/x-handlebars-template" >
       <img class= "icon" src="img/page-icon.png">
       <div class="bookmark-content">
-        <div class="content">{{content}}</div>
-        <a href="{{link}}">Original Link</a>
+        <a class="orig_link" href="{{link}}">{{title}}</a>
         <div class="date">{{timeString}}</div>
       </div>
       <img class="trash" src="img/trash-icon.png">
@@ -24,9 +23,8 @@
     <script id="img-template" type="text/x-handlebars-template" >
       <img class= "icon" src="img/image-icon.png">
       <div class="bookmark-content">
-        <img src="{{content}}">
-        <div class="content">{{content}}</div>
-        <a href="{{link}}">Original Link</a>
+        <img class="image-content" src="{{content}}">
+        <a class="orig_link" href="{{link}}">{{title}}</a>
         <div class="date">{{timeString}}</div>
       </div>
       <img class="trash" src="img/trash-icon.png">
@@ -36,7 +34,7 @@
       <img class= "icon" src="img/quote-icon.png">
       <div class="bookmark-content">
         <div class="content quote">{{content}}</div>
-        <a href="{{link}}">Original Link</a>
+        <a class="orig_link" href="{{link}}">{{title}}</a>
         <div class="date">{{timeString}}</div>
       </div>
       <img class="trash" src="img/trash-icon.png">
@@ -46,8 +44,7 @@
       <img class= "icon" src="img/video-icon.png">
       <img class="trash" src="img/trash-icon.png">
       <div class="bookmark-content">
-        <div class="content">{{content}}</div>
-        <a href="{{link}}">Original Link</a>
+        <a class="orig_link" href="{{link}}">{{title}}</a>
         <div class="date">{{timeString}}</div>
         <iframe class="ytplayer" type="text/html" width="640" height="360"
         src="https://www.youtube.com/embed/{{content}}"
