@@ -3,9 +3,16 @@
   <head>
     <title>My bookmarks</title>
     <script src="lib/jquery.min.js"></script>
+    <script src="lib/underscore-min.js"></script>
     <script src="lib/backbone-min.js"></script>
     <script src="lib/handlebars-v1.1.2.js"></script>
 
+    <script id="bookmark-template" type="text/x-handlebars-template" >
+        <div class="type">{{type}}</div>
+        <div class="content">{{content}}</div>
+        <div class="link">{{link}}</div>
+        <div class="date">{{date}}</div>
+    </script>
     <script src="bookmark.js"></script>
   </head>
   <body>
