@@ -1,6 +1,10 @@
 
 function genericOnClick(info, tab) {
 
+  function isEmpty(data) {
+    return (Object.keys(data).length == 0)
+  }
+
   function displayNotification(options) {
       chrome.notifications.create("", options, function(notificationId){
       console.log('Notification created');
@@ -12,35 +16,40 @@ function genericOnClick(info, tab) {
     });
   }
 
-  function saveData (dataList, dataEntry) {
+  function saveData (dataEntry) {
 
-    if (dataList) {
-      dataList.push(dataEntry);
-    } else {
-      dataList = [dataEntry];
-    }
+    // if (!isEmpty(dataList)) {
+    //   debugger;
+    //   dataList.push(dataEntry);
+    // } else {
+    //   dataList = [dataEntry];
+    // }
     displayNotification(options);
     // Save it using the Chrome extension storage API.
-    chrome.storage.sync.set({'test': dataList}, function() {
+    newObj = {};
+    newObj[dataEntry.content+dataEntry.link] = dataEntry;
+    chrome.storage.sync.set(newObj, function() {
     // Notify that we saved.
     console.log('Settings saved');
   });
   }
 
-  function findData (dataList, dataEntry) {
-    for (var i = 0; i < dataList.length; i++) {
-      if (dataEntry.content == dataList[i].content) {
-        return true
-      }
-    }
-    return false
-  }
+
+  //   if (isEmpty(dataList)) {return false}
+  //   for (var i = 0; i < dataList.length; i++) {
+  //     if (dataEntry.content == dataList[i].content) {
+  //       return true
+
+  //     }
+  //   }
+  //   return false
+  // }
 
   console.log("This is clicked!");
   console.log("info: " + JSON.stringify(info));
   var link = info.pageUrl;
   var date = Date();
-  var youtube = (link.indexOf("http://www.youtube.com/watch?") === 0);
+  var youtube = (link.indexOf("http://www.youtube.com/watch?") == 0);
   console.log("youtube?: " + youtube);
   var content, type;
 
@@ -67,17 +76,20 @@ function genericOnClick(info, tab) {
   var options = {"type": "basic", "title": "Bookmark Created!", "message": type+" bookmarked!", "iconUrl": iconUrl};
   var options2 = {"type": "basic", "title": "Bookmark is already There!", "message": "You have already bookmarked this "+type+"!", "iconUrl": iconUrl};
   var dataEntry = {"type": type, "content": content, "link": link, "date": date};
-
-  chrome.storage.sync.get('test', function(items){
-    var dataList = items.test;
-    if (findData(dataList, dataEntry)) {
-      displayNotification(options2);  
+  
+  chrome.storage.sync.get(dataEntry.content+dataEntry.link, function(item){
+    if (!isEmpty(item)) {
+      displayNotification(options2)
     }
     else {
-      saveData(dataList, dataEntry);
-      console.log("items" + JSON.stringify(dataList));
-    }    
-  });
+      saveData(dataEntry);
+      chrome.storage.sync.get(null, function(all){
+        console.log("All bookmarks = " + JSON.stringify(all))
+      })
+    }
+  })
+
+
 }
 
 // parent saves the id of the context menu
