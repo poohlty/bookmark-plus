@@ -8,12 +8,12 @@ function genericOnClick(info, tab) {
   var link = info.pageUrl;
   var date = Date();
   var youtube = (link.indexOf("http://www.youtube.com/watch?") == 0);
-  console.log("youtube?: " + youtube)
+  console.log("youtube?: " + youtube);
   var content, type;
 
   if (info.selectionText) {
     content = info.selectionText;
-    type = "quote"
+    type = "quote";
   } else if (info.mediaType) {
     switch (info.mediaType) {
       case "image":
@@ -26,7 +26,7 @@ function genericOnClick(info, tab) {
     content = link;
   } else {
      content = link;
-     type = "page"
+     type = "page";
   }
 
   var dataEntry = {"type": type, "content": content, "link": link, "date": date};
@@ -37,18 +37,18 @@ function genericOnClick(info, tab) {
   chrome.storage.sync.get('test', function(items){
     //console.log("Get here!" + JSON.stringify(items));
     var dataList = items.test;
- 
+
     if (dataList) {
       dataList.push(dataEntry);
     } else {
       dataList = [dataEntry];
     }
-    
+
     saveData(dataList);
     console.log("items" + JSON.stringify(dataList));
   });
 }
-// parent saves the id of the context menu 
+// parent saves the id of the context menu
 var parent = chrome.contextMenus.create({
   "title": "Bookmark+",
   "contexts": ["all"],

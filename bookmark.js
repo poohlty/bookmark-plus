@@ -12,24 +12,25 @@ var BookmarkView = Backbone.View.extend({
     className: "bookmark"
 });
 
-var bookmarkItem = new Bookmark({
-    type: "type",
-    content: "content",
-    link: "link",
-    date: "date",
+var BookmarkList = Backbone.Collection.extend({
+    model: Bookmark
 });
 
-var newView = new BookmarkView({
-    model: bookmarkItem
-});
+var bookmarkList = new BookmarkList();
 
 
 document.addEventListener('DOMContentLoaded', function () {
-
     console.log("Here!");
 
     chrome.storage.sync.get('test', function(items){
         console.log("Get here!" + JSON.stringify(items));
-        document.getElementById('bookmarks').innerHTML = JSON.stringify(items);
+        bookmarkList.reset(items.test);
+        bookmarkList.forEach(function(bookmark){
+            var newView = new BookmarkView({
+                model: bookmark
+            });
+            newView.render();
+            $("#bookmarks").append(newView.el);
+        });
     });
 });
