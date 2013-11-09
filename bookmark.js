@@ -19,6 +19,9 @@ var templateDic = {
 
 var Bookmark = Backbone.Model.extend({});
 var BookmarkView = Backbone.View.extend({
+    events: {
+        "click .trash": "deleteEntry"
+    },
     template: function(){
         var type = this.model.get("type");
         return templateDic[type];
@@ -29,7 +32,12 @@ var BookmarkView = Backbone.View.extend({
         this.$el.html(template(attributes));
     },
     tagName: "div",
-    className: "bookmark"
+    className: "bookmark",
+    deleteEntry: function(e){
+        var content = this.model.get("content");
+        var link = this.model.get("link");
+        console.log("This is gonna be deleted:" + content + link);
+    }
 });
 
 var BookmarkList = Backbone.Collection.extend({

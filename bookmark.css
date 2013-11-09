@@ -10,6 +10,7 @@ body{
 
 .title-banner{
     background-color: #2A2E39;
+    border-radius: 7px;
 }
 
 .title-icon{
@@ -20,9 +21,10 @@ body{
 .bookmark{
     float: left;
     border: 1px solid #999BA0;
-    width: 750px;
+    width: 770px;
     background-color: white;
-    margin-top: 20px;
+    margin-top: 10px;
+    margin-bottom: 15px;
     border-radius: 7px;
 }
 
@@ -30,11 +32,17 @@ body{
     font-style: italic;
 }
 
+.trash{
+    float: right;
+    width: 17px;
+    height: 17px;
+    margin: 15px;
+}
+
 .bookmark-content{
     float: left;
     max-width: 600px;
     margin: 20px;
-    margin-left: 0px;
     font-family: Georgia;
 }
 
