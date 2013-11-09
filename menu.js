@@ -4,7 +4,7 @@ function genericOnClick(info, tab) {
   console.log("info: " + JSON.stringify(info));
   console.log("tab: " + JSON.stringify(tab));
 
-  var entry1 = {"num": 1, "num2":2};
+  var entry1 = {"type": 1, "content": 2, "link": 2};
   var entry2 = {"num": 3, "num2":5};
   var myList = [entry1, entry2];
   saveData(myList);
