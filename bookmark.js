@@ -4,4 +4,7 @@ function retriveBookmarks() {
     });
 }
 
-
+document.addEventListener('DOMContentLoaded', function () {
+    console.log("Here!");
+  document.getElementById('bookmarks').innerHTML = "HAHAH";
+});
