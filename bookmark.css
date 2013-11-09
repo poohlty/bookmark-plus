@@ -1,13 +1,33 @@
+body{
+    background-color: #555861;
+}
+
 #bookmarks{
     margin: 0 auto;
     max-width: 800px;
     vertical-align: middle;
 }
 
+.title-banner{
+    background-color: #2A2E39;
+}
+
+.title-icon{
+    width: 70px;
+    height: 70px;
+}
+
 .bookmark{
     float: left;
-    border: 1px solid black;
+    border: 1px solid #999BA0;
     width: 750px;
+    background-color: white;
+    margin-top: 20px;
+    border-radius: 7px;
+}
+
+.quote{
+    font-style: italic;
 }
 
 .bookmark-content{
@@ -15,6 +35,7 @@
     max-width: 600px;
     margin: 20px;
     margin-left: 0px;
+    font-family: Georgia;
 }
 
 .icon{
