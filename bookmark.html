@@ -9,37 +9,51 @@
     <link rel="stylesheet" type="text/css" href="bookmark.css">
 
     <script id="page-template" type="text/x-handlebars-template" >
+      <img class= "icon" src="img/page-icon.png">
       <div class="type">PAGE {{type}}</div>
       <div class="content">{{content}}</div>
       <div class="link">{{link}}</div>
       <div class="date">{{date}}</div>
+      <hr>
     </script>
 
     <script id="img-template" type="text/x-handlebars-template" >
+      <img class= "icon" src="img/image-icon.png">
       <div class="type">IMG {{type}}</div>
+      <img src="{{content}}">
       <div class="content">{{content}}</div>
       <div class="link">{{link}}</div>
       <div class="date">{{date}}</div>
+      <hr>
+
     </script>
 
     <script id="quote-template" type="text/x-handlebars-template" >
-      <div class="type">QUOTE {{type}}</div>
+      <img class= "icon" src="img/quote-icon.png">
+      <div class="quote">QUOTE {{type}}</div>
       <div class="content">{{content}}</div>
       <div class="link">{{link}}</div>
       <div class="date">{{date}}</div>
+      <hr>
     </script>
 
     <script id="youtube-template" type="text/x-handlebars-template" >
+      <img class= "icon" src="img/video-icon.png">
       <div class="type">YOUTUBE {{type}}</div>
       <div class="content">{{content}}</div>
       <div class="link">{{link}}</div>
       <div class="date">{{date}}</div>
+      <iframe class="ytplayer" type="text/html" width="640" height="360"
+      src="https://www.youtube.com/embed/M7lc1UVf-VE"
+      frameborder="0" allowfullscreen>
+      <hr>
     </script>
 
     <script src="bookmark.js"></script>
   </head>
   <body>
-    Hello World :)
+    Your awesome bookmarks
+    <hr>
     <div id="bookmarks"></div>
   </body>
 </html>

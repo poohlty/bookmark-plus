@@ -7,10 +7,14 @@ var imgTemplate = Handlebars.compile(imgTemplateSource);
 var quoteTemplateSource = $("#quote-template").html();
 var quoteTemplate = Handlebars.compile(quoteTemplateSource);
 
+var youtubeTemplateSource = $("#youtube-template").html();
+var youtubeTemplate = Handlebars.compile(youtubeTemplateSource);
+
 var templateDic = {
     page: pageTemplate,
     image: imgTemplate,
-    quote: quoteTemplate
+    quote: quoteTemplate,
+    youtube: youtubeTemplate
 };
 
 var Bookmark = Backbone.Model.extend({});
