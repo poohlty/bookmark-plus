@@ -28,6 +28,6 @@ function saveData (value) {
 }
 
 chrome.browserAction.onClicked.addListener(function(activeTab){
-    var newURL = chrome.extension.getURL('home.html');
+    var newURL = chrome.extension.getURL('bookmark.html');
     chrome.tabs.create({ url: newURL });
 });
