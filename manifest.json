@@ -6,6 +6,7 @@
   "version": "0.1",
 
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+ 
 
   "browser_action": {
     "default_icon": {
@@ -22,7 +23,7 @@
   },
 
   "background": {
-    "scripts": ["menu.js"]
+    "scripts": ["menu.js", "lib/sha1.js"]
   },
   "permissions": [
     "tabs",
