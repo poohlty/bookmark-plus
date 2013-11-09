@@ -7,12 +7,35 @@
     <script src="lib/backbone-min.js"></script>
     <script src="lib/handlebars-v1.1.2.js"></script>
     <link rel="stylesheet" type="text/css" href="bookmark.css">
-    <script id="bookmark-template" type="text/x-handlebars-template" >
-      <div class="type">{{type}}</div>
+
+    <script id="page-template" type="text/x-handlebars-template" >
+      <div class="type">PAGE {{type}}</div>
       <div class="content">{{content}}</div>
       <div class="link">{{link}}</div>
       <div class="date">{{date}}</div>
     </script>
+
+    <script id="img-template" type="text/x-handlebars-template" >
+      <div class="type">IMG {{type}}</div>
+      <div class="content">{{content}}</div>
+      <div class="link">{{link}}</div>
+      <div class="date">{{date}}</div>
+    </script>
+
+    <script id="quote-template" type="text/x-handlebars-template" >
+      <div class="type">QUOTE {{type}}</div>
+      <div class="content">{{content}}</div>
+      <div class="link">{{link}}</div>
+      <div class="date">{{date}}</div>
+    </script>
+
+    <script id="youtube-template" type="text/x-handlebars-template" >
+      <div class="type">YOUTUBE {{type}}</div>
+      <div class="content">{{content}}</div>
+      <div class="link">{{link}}</div>
+      <div class="date">{{date}}</div>
+    </script>
+
     <script src="bookmark.js"></script>
   </head>
   <body>

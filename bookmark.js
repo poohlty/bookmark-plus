@@ -1,12 +1,28 @@
-var source = $("#bookmark-template").html();
-var bookmarkTemplate = Handlebars.compile(source);
+var pageTemplateSource = $("#page-template").html();
+var pageTemplate = Handlebars.compile(pageTemplateSource);
+
+var imgTemplateSource = $("#img-template").html();
+var imgTemplate = Handlebars.compile(imgTemplateSource);
+
+var quoteTemplateSource = $("#quote-template").html();
+var quoteTemplate = Handlebars.compile(quoteTemplateSource);
+
+var templateDic = {
+    page: pageTemplate,
+    image: imgTemplate,
+    quote: quoteTemplate
+};
 
 var Bookmark = Backbone.Model.extend({});
 var BookmarkView = Backbone.View.extend({
-    template: bookmarkTemplate,
+    template: function(){
+        var type = this.model.get("type");
+        return templateDic[type];
+    },
     render: function(){
         var attributes = this.model.toJSON();
-        this.$el.html(this.template(attributes));
+        var template = this.template();
+        this.$el.html(template(attributes));
     },
     tagName: "div",
     className: "bookmark"
@@ -17,7 +33,6 @@ var BookmarkList = Backbone.Collection.extend({
 });
 
 var bookmarkList = new BookmarkList();
-
 
 document.addEventListener('DOMContentLoaded', function () {
     console.log("Here!");
