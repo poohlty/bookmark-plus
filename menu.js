@@ -23,7 +23,7 @@ function genericOnClick(info, tab) {
     }
   } else if (youtube) {
     type = "youtube";
-    content = link;
+    content = link.substring(link.indexOf("?")+3);
   } else {
      content = link;
      type = "page";
