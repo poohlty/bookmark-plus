@@ -74,25 +74,40 @@ function genericOnClick(info, tab) {
   }
 
   var iconUrl = "img/ext-icon-16.png";
-  var options = {"type": "basic", "title": "Bookmark Created!", "message": type+" bookmarked!", "iconUrl": iconUrl};
-  var options2 = {"type": "basic", "title": "Bookmark is already There!", "message": "You have already bookmarked this "+type+"!", "iconUrl": iconUrl};
-  var dataEntry = {"type": type, "content": content, "link": link, "date": date};
-  var hash1 = CryptoJS.SHA1(dataEntry.content+dataEntry.link);
-  console.log("hash = " + hash1); 
-  chrome.storage.sync.get(null, function(items){
-    var item = items[hash1]; 
-    console.log('Item = '+ JSON.stringify(item));
-    if (item!=null) {
-      displayNotification(options2)
-    }
-    else {
-      saveData(dataEntry);
+  var options = {
+    "type": "basic",
+    "title": "Bookmark Created!",
+    "message": type+" bookmarked!",
+    "iconUrl": iconUrl
+  };
+  var options2 = {
+    "type": "basic",
+    "title": "Bookmark is already There!",
+    "message": "You have already bookmarked this "+type+"!",
+    "iconUrl": iconUrl
+  };
 
-    };
+  var hash1 = CryptoJS.SHA1(content + link);
+  var dataEntry = {
+    "type": type,
+    "content": content,
+    "link": link,
+    "date": date
+  };
+
+  console.log("hash = " + hash1);
+  chrome.storage.sync.get(null, function(items){
+    var item = items[hash1];
+    console.log('Item = '+ JSON.stringify(item));
+    if (item != null) {
+      displayNotification(options2);
+    } else {
+      saveData(dataEntry);
+    }
     chrome.storage.sync.get(null, function(all){
-      console.log("All bookmarks = " + JSON.stringify(all))
-    })
-  })
+      console.log("All bookmarks = " + JSON.stringify(all));
+    });
+  });
 
 
 }

@@ -36,6 +36,7 @@ var BookmarkView = Backbone.View.extend({
     deleteEntry: function(e){
         var content = this.model.get("content");
         var link = this.model.get("link");
+        var hash1 = CryptoJS.SHA1(content + link);
         console.log("This is gonna be deleted:" + content + link);
     }
 });
@@ -49,9 +50,11 @@ var bookmarkList = new BookmarkList();
 document.addEventListener('DOMContentLoaded', function () {
     console.log("Here!");
 
-    chrome.storage.sync.get('test', function(items){
+    chrome.storage.sync.get(null, function(items){
         console.log("Get here!" + JSON.stringify(items));
-        bookmarkList.reset(items.test);
+        var keys = Object.keys(items);
+        var values = keys.map(function(v) { return items[v]; });
+        bookmarkList.reset(values);
         bookmarkList.forEach(function(bookmark){
             var newView = new BookmarkView({
                 model: bookmark
