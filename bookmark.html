@@ -7,14 +7,16 @@
     <script src="lib/backbone-min.js"></script>
     <script src="lib/handlebars-v1.1.2.js"></script>
     <script src="lib/sha1.js"></script>
+    <script src="lib/moment.min.js"></script>
+
     <link rel="stylesheet" type="text/css" href="bookmark.css">
 
     <script id="page-template" type="text/x-handlebars-template" >
       <img class= "icon" src="img/page-icon.png">
       <div class="bookmark-content">
         <div class="content">{{content}}</div>
-        <div class="link">{{link}}</div>
-        <div class="date">{{date}}</div>
+        <a href="{{link}}">Original Link</a>
+        <div class="date">{{timeString}}</div>
       </div>
       <img class="trash" src="img/trash-icon.png">
     </script>
@@ -24,8 +26,8 @@
       <div class="bookmark-content">
         <img src="{{content}}">
         <div class="content">{{content}}</div>
-        <div class="link">{{link}}</div>
-        <div class="date">{{date}}</div>
+        <a href="{{link}}">Original Link</a>
+        <div class="date">{{timeString}}</div>
       </div>
       <img class="trash" src="img/trash-icon.png">
     </script>
@@ -34,8 +36,8 @@
       <img class= "icon" src="img/quote-icon.png">
       <div class="bookmark-content">
         <div class="content quote">{{content}}</div>
-        <div class="link">{{link}}</div>
-        <div class="date">{{date}}</div>
+        <a href="{{link}}">Original Link</a>
+        <div class="date">{{timeString}}</div>
       </div>
       <img class="trash" src="img/trash-icon.png">
     </script>
@@ -45,8 +47,8 @@
       <img class="trash" src="img/trash-icon.png">
       <div class="bookmark-content">
         <div class="content">{{content}}</div>
-        <div class="link">{{link}}</div>
-        <div class="date">{{date}}</div>
+        <a href="{{link}}">Original Link</a>
+        <div class="date">{{timeString}}</div>
         <iframe class="ytplayer" type="text/html" width="640" height="360"
         src="https://www.youtube.com/embed/{{content}}"
         frameborder="0" allowfullscreen>

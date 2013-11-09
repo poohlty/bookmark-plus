@@ -28,6 +28,7 @@ var BookmarkView = Backbone.View.extend({
     },
     render: function(){
         var attributes = this.model.toJSON();
+        attributes["timeString"] = moment(this.model.get("date")).fromNow();
         var template = this.template();
         this.$el.html(template(attributes));
     },

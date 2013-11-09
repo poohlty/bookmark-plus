@@ -32,18 +32,24 @@ body{
     font-style: italic;
 }
 
-.trash{
-    float: right;
-    width: 17px;
-    height: 17px;
-    margin: 15px;
-}
-
 .bookmark-content{
     float: left;
     max-width: 590px;
     margin: 20px;
     font-family: Georgia;
+}
+
+.date {
+    font-size: 13px;
+    color: #999BA0;
+}
+
+.trash{
+    float: right;
+    width: 17px;
+    height: 17px;
+    margin-top: 15px;
+    margin-right: 15px;
 }
 
 .icon{

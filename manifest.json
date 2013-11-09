@@ -22,8 +22,13 @@
   },
 
   "background": {
-    "scripts": ["menu.js", "lib/sha1.js", "lib/jquery.min.js"]
+    "scripts": [
+      "menu.js",
+      "lib/sha1.js",
+      "lib/jquery.min.js"
+    ]
   },
+
   "permissions": [
     "tabs",
     "contextMenus",
