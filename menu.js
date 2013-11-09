@@ -1,9 +1,9 @@
 
 function genericOnClick(info, tab) {
 
-  function isEmpty(data) {
-    return (Object.keys(data).length == 0)
-  }
+  // function isEmpty(data) {
+  //   return (Object.keys(data).length == 0)
+  // }
 
   function displayNotification(options) {
       chrome.notifications.create("", options, function(notificationId){
@@ -26,8 +26,9 @@ function genericOnClick(info, tab) {
     // }
     displayNotification(options);
     // Save it using the Chrome extension storage API.
-    newObj = {};
-    newObj[dataEntry.content+dataEntry.link] = dataEntry;
+    var newObj = {};
+    var hash = CryptoJS.SHA1(dataEntry.content+dataEntry.link);
+    newObj[hash] = dataEntry;
     chrome.storage.sync.set(newObj, function() {
     // Notify that we saved.
     console.log('Settings saved');
@@ -76,17 +77,21 @@ function genericOnClick(info, tab) {
   var options = {"type": "basic", "title": "Bookmark Created!", "message": type+" bookmarked!", "iconUrl": iconUrl};
   var options2 = {"type": "basic", "title": "Bookmark is already There!", "message": "You have already bookmarked this "+type+"!", "iconUrl": iconUrl};
   var dataEntry = {"type": type, "content": content, "link": link, "date": date};
-  
-  chrome.storage.sync.get(dataEntry.content+dataEntry.link, function(item){
-    if (!isEmpty(item)) {
+  var hash1 = CryptoJS.SHA1(dataEntry.content+dataEntry.link);
+  console.log("hash = " + hash1); 
+  chrome.storage.sync.get(null, function(items){
+    var item = items[hash1]; 
+    console.log('Item = '+ JSON.stringify(item));
+    if (item!=null) {
       displayNotification(options2)
     }
     else {
       saveData(dataEntry);
-      chrome.storage.sync.get(null, function(all){
-        console.log("All bookmarks = " + JSON.stringify(all))
-      })
-    }
+
+    };
+    chrome.storage.sync.get(null, function(all){
+      console.log("All bookmarks = " + JSON.stringify(all))
+    })
   })
 
 
