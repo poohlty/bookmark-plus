@@ -1,9 +1,6 @@
 
 function genericOnClick(info, tab) {
 
-  // function isEmpty(data) {
-  //   return (Object.keys(data).length == 0)
-  // }
 
   function displayNotification(options) {
       chrome.notifications.create("", options, function(notificationId){
@@ -17,34 +14,16 @@ function genericOnClick(info, tab) {
   }
 
   function saveData (dataEntry) {
-
-    // if (!isEmpty(dataList)) {
-    //   debugger;
-    //   dataList.push(dataEntry);
-    // } else {
-    //   dataList = [dataEntry];
-    // }
-    displayNotification(options);
     // Save it using the Chrome extension storage API.
     var newObj = {};
-    var hash = CryptoJS.SHA1(dataEntry.content+dataEntry.link);
+    var hash = CryptoJS.SHA1(dataEntry.content+dataEntry.link).toString();
     newObj[hash] = dataEntry;
     chrome.storage.sync.set(newObj, function() {
     // Notify that we saved.
+    displayNotification(options);
     console.log('Settings saved');
-  });
-  }
+  })};
 
-
-  //   if (isEmpty(dataList)) {return false}
-  //   for (var i = 0; i < dataList.length; i++) {
-  //     if (dataEntry.content == dataList[i].content) {
-  //       return true
-
-  //     }
-  //   }
-  //   return false
-  // }
 
   console.log("This is clicked!");
   console.log("info: " + JSON.stringify(info));
@@ -82,12 +61,12 @@ function genericOnClick(info, tab) {
   };
   var options2 = {
     "type": "basic",
-    "title": "Bookmark is already There!",
+    "title": "Bookmark is already there!",
     "message": "You have already bookmarked this "+type+"!",
     "iconUrl": iconUrl
   };
 
-  var hash1 = CryptoJS.SHA1(content + link);
+  var hash = CryptoJS.SHA1(content + link).toString();
   var dataEntry = {
     "type": type,
     "content": content,
@@ -95,20 +74,17 @@ function genericOnClick(info, tab) {
     "date": date
   };
 
-  console.log("hash = " + hash1);
+  console.log("hash = " + hash);
   chrome.storage.sync.get(null, function(items){
-    var item = items[hash1];
+    var item = items[hash];
     console.log('Item = '+ JSON.stringify(item));
     if (item != null) {
       displayNotification(options2);
     } else {
       saveData(dataEntry);
-    }
-    chrome.storage.sync.get(null, function(all){
-      console.log("All bookmarks = " + JSON.stringify(all));
+    };
+    console.log("All bookmarks = " + JSON.stringify(items));
     });
-  });
-
 
 }
 
@@ -119,27 +95,7 @@ var parent = chrome.contextMenus.create({
   "onclick": genericOnClick
 });
 
-// function saveData (dataList, dataEntry) {
 
-//     if (dataList) {
-//       dataList.push(dataEntry);
-//     } else {
-//       dataList = [dataEntry];
-//     }
-//     chrome.notifications.create("", options, function(notificationId){
-//       console.log('Notification created');
-//       window.setTimeout(function(){
-//         chrome.notifications.clear(notificationId, function(wasCleared){
-//           if (wasCleared) {console.log('Notification cleared');}
-//         });
-//       }, 2500);
-//     });
-//   // Save it using the Chrome extension storage API.
-//   chrome.storage.sync.set({'test': dataList}, function() {
-//     // Notify that we saved.
-//     console.log('Settings saved');
-//   });
-// }
 
 chrome.browserAction.onClicked.addListener(function(activeTab){
     var newURL = chrome.extension.getURL('bookmark.html');
