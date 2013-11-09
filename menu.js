@@ -1,6 +1,4 @@
-
 function genericOnClick(info, tab) {
-
 
   function displayNotification(options) {
       chrome.notifications.create("", options, function(notificationId){
@@ -22,8 +20,7 @@ function genericOnClick(info, tab) {
     // Notify that we saved.
     displayNotification(options);
     console.log('Settings saved');
-  })};
-
+  })}
 
   console.log("This is clicked!");
   console.log("info: " + JSON.stringify(info));
@@ -32,7 +29,6 @@ function genericOnClick(info, tab) {
   var youtube = (link.indexOf("http://www.youtube.com/watch?") == 0);
   console.log("youtube?: " + youtube);
   var content, type;
-
 
   if (info.selectionText) {
     content = info.selectionText;
@@ -48,8 +44,8 @@ function genericOnClick(info, tab) {
     type = "youtube";
     content = link.substring(link.indexOf("?") + 3);
   } else {
-     content = link;
-     type = "page";
+    content = link;
+    type = "page";
   }
 
   var iconUrl = "img/ext-icon-16.png";
@@ -82,9 +78,9 @@ function genericOnClick(info, tab) {
       displayNotification(options2);
     } else {
       saveData(dataEntry);
-    };
+    }
     console.log("All bookmarks = " + JSON.stringify(items));
-    });
+  });
 
 }
 
@@ -94,8 +90,6 @@ var parent = chrome.contextMenus.create({
   "contexts": ["all"],
   "onclick": genericOnClick
 });
-
-
 
 chrome.browserAction.onClicked.addListener(function(activeTab){
     var newURL = chrome.extension.getURL('bookmark.html');
