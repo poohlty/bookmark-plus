@@ -38,8 +38,9 @@ function saveData (dataEntry) {
 }
 
 function genericOnClick(info, tab) {
-  console.log("This is clicked!");
+;  console.log("This is clicked!");
   console.log("info: " + JSON.stringify(info));
+  console.log("tab: " + JSON.stringify(tab));
   var link = info.pageUrl;
   var date = Date();
   var hash = CryptoJS.SHA1(content + link).toString();
@@ -66,14 +67,14 @@ function genericOnClick(info, tab) {
     type = "page";
   }
 
-  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+ // chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
     // chrome.tabs.sendMessage(tabs[0].id, {greeting: "hello"}, function(response) {});
     var dataEntry = {
       "type": type,
       "content": content,
       "link": link,
       "date": date,
-      "title": tabs[0].title
+      "title": tab.title
     };
 
     console.log("hash = " + hash);
@@ -87,9 +88,8 @@ function genericOnClick(info, tab) {
       }
       console.log("All bookmarks = " + JSON.stringify(items));
     });
-  });
-}
-
+//   });
+};
 // parent saves the id of the context menu
 var parent = chrome.contextMenus.create({
   "title": "Bookmark+",
