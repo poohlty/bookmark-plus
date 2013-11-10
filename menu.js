@@ -67,26 +67,25 @@ function genericOnClick(info, tab) {
   }
 
   chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-    chrome.tabs.sendMessage(tabs[0].id, {greeting: "hello"}, function(response) {
-      var dataEntry = {
-        "type": type,
-        "content": content,
-        "link": link,
-        "date": date,
-        "title": response.title
-      };
+    // chrome.tabs.sendMessage(tabs[0].id, {greeting: "hello"}, function(response) {});
+    var dataEntry = {
+      "type": type,
+      "content": content,
+      "link": link,
+      "date": date,
+      "title": tabs[0].title
+    };
 
-      console.log("hash = " + hash);
-      chrome.storage.sync.get(null, function(items){
-        var item = items[hash];
-        console.log('Item = '+ JSON.stringify(item));
-        if (item != null) {
-          displayNotification(dupEntryNotifyOptions);
-        } else {
-          saveData(dataEntry);
-        }
-        console.log("All bookmarks = " + JSON.stringify(items));
-      });
+    console.log("hash = " + hash);
+    chrome.storage.sync.get(null, function(items){
+      var item = items[hash];
+      console.log('Item = '+ JSON.stringify(item));
+      if (item != null) {
+        displayNotification(dupEntryNotifyOptions);
+      } else {
+        saveData(dataEntry);
+      }
+      console.log("All bookmarks = " + JSON.stringify(items));
     });
   });
 }
