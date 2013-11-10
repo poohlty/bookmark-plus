@@ -14,13 +14,14 @@ function genericOnClick(info, tab) {
   function saveData (dataEntry) {
     // Save it using the Chrome extension storage API.
     var newObj = {};
-    var hash = CryptoJS.SHA1(dataEntry.content+dataEntry.link).toString();
+    var hash = CryptoJS.SHA1(dataEntry.content + dataEntry.link).toString();
     newObj[hash] = dataEntry;
     chrome.storage.sync.set(newObj, function() {
-    // Notify that we saved.
-    displayNotification(options);
-    console.log('Settings saved');
-  })}
+      // Notify that we saved.
+      displayNotification(options);
+      console.log('Settings saved');
+    });
+  }
 
   console.log("This is clicked!");
   console.log("info: " + JSON.stringify(info));
@@ -28,6 +29,7 @@ function genericOnClick(info, tab) {
   var date = Date();
   var youtube = (link.indexOf("http://www.youtube.com/watch?") == 0);
   console.log("youtube?: " + youtube);
+
   var content, type;
 
   if (info.selectionText) {
@@ -64,29 +66,29 @@ function genericOnClick(info, tab) {
 
   var hash = CryptoJS.SHA1(content + link).toString();
 
-  $.ajax("https://quiet-headland-7786.herokuapp.com/?url=" + link).done(function(data){
-    var dataEntry = {
-      "type": type,
-      "content": content,
-      "link": link,
-      "date": date,
-      "title": JSON.parse(data).title
-    };
+  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+    chrome.tabs.sendMessage(tabs[0].id, {greeting: "hello"}, function(response) {
+      var dataEntry = {
+        "type": type,
+        "content": content,
+        "link": link,
+        "date": date,
+        "title": response.title
+      };
 
-    console.log("hash = " + hash);
-    chrome.storage.sync.get(null, function(items){
-      var item = items[hash];
-      console.log('Item = '+ JSON.stringify(item));
-      if (item != null) {
-        displayNotification(options2);
-      } else {
-        saveData(dataEntry);
-      }
-      console.log("All bookmarks = " + JSON.stringify(items));
+      console.log("hash = " + hash);
+      chrome.storage.sync.get(null, function(items){
+        var item = items[hash];
+        console.log('Item = '+ JSON.stringify(item));
+        if (item != null) {
+          displayNotification(options2);
+        } else {
+          saveData(dataEntry);
+        }
+        console.log("All bookmarks = " + JSON.stringify(items));
+      });
     });
   });
-
-
 }
 
 // parent saves the id of the context menu
