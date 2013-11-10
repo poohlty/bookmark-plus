@@ -1,36 +1,52 @@
+
+// Global opetions for different Notifications
+var iconUrl = "img/ext-icon-16.png";
+var newEntryNotifyOptions = {
+  "type": "basic",
+  "title": "Bookmark Created",
+  "message": "Bookmarked!",
+  "iconUrl": iconUrl
+};
+var dupEntryNotifyOptions = {
+  "type": "basic",
+  "title": "Bookmark already there!",
+  "message": "You have already bookmarked this.",
+  "iconUrl": iconUrl
+};
+
+function displayNotification(options) {
+    chrome.notifications.create("", options, function(notificationId){
+    console.log('Notification created');
+    window.setTimeout(function(){
+      chrome.notifications.clear(notificationId, function(wasCleared){
+        if (wasCleared) {console.log('Notification cleared');}
+      });
+    }, 2500);
+  });
+}
+
+function saveData (dataEntry) {
+  // Save it using the Chrome extension storage API.
+  var newObj = {};
+  var hash = CryptoJS.SHA1(dataEntry.content + dataEntry.link).toString();
+  newObj[hash] = dataEntry;
+  chrome.storage.sync.set(newObj, function() {
+    // Notify that we saved.
+    displayNotification(newEntryNotifyOptions);
+    console.log('Settings saved');
+  });
+}
+
 function genericOnClick(info, tab) {
-
-  function displayNotification(options) {
-      chrome.notifications.create("", options, function(notificationId){
-      console.log('Notification created');
-      window.setTimeout(function(){
-        chrome.notifications.clear(notificationId, function(wasCleared){
-          if (wasCleared) {console.log('Notification cleared');}
-        });
-      }, 2500);
-    });
-  }
-
-  function saveData (dataEntry) {
-    // Save it using the Chrome extension storage API.
-    var newObj = {};
-    var hash = CryptoJS.SHA1(dataEntry.content + dataEntry.link).toString();
-    newObj[hash] = dataEntry;
-    chrome.storage.sync.set(newObj, function() {
-      // Notify that we saved.
-      displayNotification(options);
-      console.log('Settings saved');
-    });
-  }
-
   console.log("This is clicked!");
   console.log("info: " + JSON.stringify(info));
   var link = info.pageUrl;
   var date = Date();
+  var hash = CryptoJS.SHA1(content + link).toString();
+  var content, type;
+
   var youtube = (link.indexOf("http://www.youtube.com/watch?") == 0);
   console.log("youtube?: " + youtube);
-
-  var content, type;
 
   if (info.selectionText) {
     content = info.selectionText;
@@ -50,22 +66,6 @@ function genericOnClick(info, tab) {
     type = "page";
   }
 
-  var iconUrl = "img/ext-icon-16.png";
-  var options = {
-    "type": "basic",
-    "title": "Bookmark Created!",
-    "message": type+" bookmarked!",
-    "iconUrl": iconUrl
-  };
-  var options2 = {
-    "type": "basic",
-    "title": "Bookmark is already there!",
-    "message": "You have already bookmarked this "+type+"!",
-    "iconUrl": iconUrl
-  };
-
-  var hash = CryptoJS.SHA1(content + link).toString();
-
   chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
     chrome.tabs.sendMessage(tabs[0].id, {greeting: "hello"}, function(response) {
       var dataEntry = {
@@ -81,7 +81,7 @@ function genericOnClick(info, tab) {
         var item = items[hash];
         console.log('Item = '+ JSON.stringify(item));
         if (item != null) {
-          displayNotification(options2);
+          displayNotification(dupEntryNotifyOptions);
         } else {
           saveData(dataEntry);
         }
