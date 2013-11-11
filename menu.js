@@ -43,7 +43,6 @@ function genericOnClick(info, tab) {
   console.log("tab: " + JSON.stringify(tab));
   var link = info.pageUrl;
   var date = Date();
-  var hash = CryptoJS.SHA1(content + link).toString();
   var content, type;
 
   var youtube = (link.indexOf("http://www.youtube.com/watch?") == 0);
@@ -67,6 +66,7 @@ function genericOnClick(info, tab) {
     type = "page";
   }
 
+  var hash = CryptoJS.SHA1(content + link).toString();
  // chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
     // chrome.tabs.sendMessage(tabs[0].id, {greeting: "hello"}, function(response) {});
     var dataEntry = {
@@ -82,8 +82,10 @@ function genericOnClick(info, tab) {
       var item = items[hash];
       console.log('Item = '+ JSON.stringify(item));
       if (item != null) {
+        console.log("Duplicity");
         displayNotification(dupEntryNotifyOptions);
       } else {
+        console.log("NEW");
         saveData(dataEntry);
       }
       console.log("All bookmarks = " + JSON.stringify(items));
