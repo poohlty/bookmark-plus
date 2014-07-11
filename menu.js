@@ -38,7 +38,7 @@ function saveData (dataEntry) {
 }
 
 function genericOnClick(info, tab) {
-;  console.log("This is clicked!");
+  console.log("This is clicked!");
   console.log("info: " + JSON.stringify(info));
   console.log("tab: " + JSON.stringify(tab));
   var link = info.pageUrl;
@@ -67,7 +67,7 @@ function genericOnClick(info, tab) {
   }
 
   var hash = CryptoJS.SHA1(content + link).toString();
- // chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+ // chrome.tabs.query({active: true, currentWindow: true}, function(tabs) { });
     // chrome.tabs.sendMessage(tabs[0].id, {greeting: "hello"}, function(response) {});
     var dataEntry = {
       "type": type,
@@ -77,21 +77,21 @@ function genericOnClick(info, tab) {
       "title": tab.title
     };
 
-    console.log("hash = " + hash);
-    chrome.storage.sync.get(null, function(items){
-      var item = items[hash];
-      console.log('Item = '+ JSON.stringify(item));
-      if (item != null) {
-        console.log("Duplicity");
-        displayNotification(dupEntryNotifyOptions);
-      } else {
-        console.log("NEW");
-        saveData(dataEntry);
-      }
-      console.log("All bookmarks = " + JSON.stringify(items));
-    });
-//   });
+  console.log("hash = " + hash);
+  chrome.storage.sync.get(null, function(items){
+    var item = items[hash];
+    console.log('Item = '+ JSON.stringify(item));
+    if (item != null) {
+      console.log("Duplicity");
+      displayNotification(dupEntryNotifyOptions);
+    } else {
+      console.log("NEW");
+      saveData(dataEntry);
+    }
+    console.log("All bookmarks = " + JSON.stringify(items));
+  });
 };
+
 // parent saves the id of the context menu
 var parent = chrome.contextMenus.create({
   "title": "Bookmark+",
