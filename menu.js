@@ -45,7 +45,7 @@ function genericOnClick(info, tab) {
   var date = Date();
   var content, type;
 
-  var youtube = (link.indexOf("http://www.youtube.com/watch?") == 0);
+  var youtube = /https?:\/\/www\.youtube\.com\/watch\?/.test(link);
   console.log("youtube?: " + youtube);
 
   if (info.selectionText) {
