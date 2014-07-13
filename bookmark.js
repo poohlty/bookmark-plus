@@ -56,8 +56,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     chrome.storage.sync.get(null, function(items){
         console.log("Get here!" + JSON.stringify(items));
-        var keys = Object.keys(items);
-        var values = keys.map(function(v) { return items[v]; });
+
+        var sortedItems = _.sortBy(items, function(item){
+            var date = new Date(item.date);
+            return -date.getTime();
+        });
+
+        var keys = Object.keys(sortedItems);
+        var values = keys.map(function(v) { return sortedItems[v]; });
         bookmarkList.reset(values);
         bookmarkList.forEach(function(bookmark){
             var newView = new BookmarkView({
